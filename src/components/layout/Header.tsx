@@ -42,7 +42,7 @@ const Header = () => {
     <header className={headerClass}>
       <div className="container mx-auto px-6 flex justify-between items-center">
         <a href="#home" className="text-2xl font-bold font-display tracking-tight text-gradient relative z-10">
-          John.Dev
+         Nur Pratap Karki
         </a>
         
         {/* Desktop Navigation */}
