@@ -1,5 +1,6 @@
 
 import ProjectCard from '../ui/ProjectCard';
+import { Github } from 'lucide-react';
 
 const projects = [
   {
