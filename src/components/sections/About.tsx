@@ -1,6 +1,7 @@
 
 import { Code, Layout, Sparkles, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useRef, useEffect } from 'react';
 
 const skills = [
   { name: 'React.js', level: 95 },
@@ -43,13 +44,43 @@ interface ServiceCardProps {
 }
 
 const ServiceCard = ({ icon, title, description, delay }: ServiceCardProps) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-animated');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+    
+    return () => {
+      if (cardRef.current) {
+        observer.unobserve(cardRef.current);
+      }
+    };
+  }, []);
+  
   return (
-    <div className={cn(
-      "bg-card p-6 rounded-xl border border-border shadow-sm hover:shadow-md transition-all", 
-      "opacity-0 animate-fade-up",
-      delay
-    )}>
-      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4">
+    <div 
+      ref={cardRef}
+      className={cn(
+        "bg-card p-6 rounded-xl border border-border shadow-sm hover:shadow-md transition-all cursor-pointer", 
+        "opacity-0 translate-y-10 service-card",
+        delay
+      )}
+      style={{ transitionDelay: delay }}
+    >
+      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4 service-icon">
         {icon}
       </div>
       <h3 className="text-lg font-semibold mb-2">{title}</h3>
@@ -59,6 +90,8 @@ const ServiceCard = ({ icon, title, description, delay }: ServiceCardProps) => {
 };
 
 const About = () => {
+  const servicesRef = useRef<HTMLDivElement>(null);
+  
   return (
     <section id="about" className="section-padding">
       <div className="section-container">
@@ -106,32 +139,32 @@ const About = () => {
           </div>
         </div>
         
-        <div className="mt-24">
+        <div className="mt-24" ref={servicesRef}>
           <h3 className="text-xl font-bold mb-8 text-center animate-fade-up">Services I Offer</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <ServiceCard 
               icon={<Layout size={24} />}
               title="Web Development"
               description="I build responsive websites that provide optimal user experiences across all devices."
-              delay="animate-delay-100"
+              delay="100ms"
             />
             <ServiceCard 
               icon={<Code size={24} />}
               title="Frontend Development"
               description="I create responsive, interactive interfaces using modern JavaScript frameworks."
-              delay="animate-delay-200"
+              delay="200ms"
             />
             <ServiceCard 
               icon={<Sparkles size={24} />}
               title="UI/UX Design"
               description="I design intuitive interfaces that create meaningful and relevant experiences."
-              delay="animate-delay-300"
+              delay="300ms"
             />
             <ServiceCard 
               icon={<Zap size={24} />}
               title="Performance Optimization"
               description="I optimize web applications for speed and efficiency across all platforms."
-              delay="animate-delay-400"
+              delay="400ms"
             />
           </div>
         </div>
