@@ -38,7 +38,7 @@ const SkillBar = ({ name, level, index }: SkillBarProps) => {
       width: `${level}%`,
       transition: {
         duration: 1,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        ease: [0.25, 0.46, 0.45, 0.94], // Using a valid cubic-bezier
         delay: 0.3 + (index * 0.1)
       }
     }
