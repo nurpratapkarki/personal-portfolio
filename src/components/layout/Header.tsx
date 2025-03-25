@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const location = useLocation();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -21,10 +23,10 @@ const Header = () => {
   }, []);
   
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Projects', href: '/projects' },
+    { name: 'Contact', href: '/contact' }
   ];
   
   const toggleMenu = () => {
@@ -72,33 +74,39 @@ const Header = () => {
       className={headerClass}
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
-        <motion.a 
-          href="#home" 
-          className="text-2xl font-bold font-display tracking-tight text-gradient relative z-10"
+        <motion.div
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-         Nur Pratap Karki
-        </motion.a>
+          <Link to="/" className="text-2xl font-bold font-display tracking-tight text-gradient relative z-10">
+            Nur Pratap Karki
+          </Link>
+        </motion.div>
         
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
           {navLinks.map((link, i) => (
-            <motion.a
+            <motion.div
               key={link.name}
-              href={link.href}
-              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors custom-button"
               custom={i}
               variants={navItemVariants}
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.95 }}
             >
-              {link.name}
-            </motion.a>
+              <Link 
+                to={link.href}
+                className={cn(
+                  "text-sm font-medium transition-colors custom-button",
+                  location.pathname === link.href 
+                    ? "text-primary" 
+                    : "text-foreground/80 hover:text-primary"
+                )}
+              >
+                {link.name}
+              </Link>
+            </motion.div>
           ))}
-          <motion.a 
-            href="#contact"
-            className="ml-2 text-sm font-medium px-5 py-2.5 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+          <motion.div 
             variants={navItemVariants}
             custom={4}
             whileHover={{ 
@@ -107,8 +115,13 @@ const Header = () => {
             }}
             whileTap={{ scale: 0.95 }}
           >
-            Hire Me
-          </motion.a>
+            <Link 
+              to="/contact"
+              className="ml-2 text-sm font-medium px-5 py-2.5 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+            >
+              Hire Me
+            </Link>
+          </motion.div>
         </nav>
         
         {/* Mobile Menu Button */}
@@ -147,11 +160,8 @@ const Header = () => {
               }}
             >
               {navLinks.map((link, i) => (
-                <motion.a
+                <motion.div
                   key={link.name}
-                  href={link.href}
-                  className="text-xl font-medium text-foreground hover:text-primary transition-colors"
-                  onClick={toggleMenu}
                   variants={{
                     hidden: { opacity: 0, y: 20 },
                     visible: { 
@@ -167,13 +177,21 @@ const Header = () => {
                   whileHover={{ scale: 1.1, x: 5 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  {link.name}
-                </motion.a>
+                  <Link
+                    to={link.href}
+                    className={cn(
+                      "text-xl font-medium transition-colors",
+                      location.pathname === link.href 
+                        ? "text-primary" 
+                        : "text-foreground hover:text-primary"
+                    )}
+                    onClick={toggleMenu}
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
               ))}
-              <motion.a 
-                href="#contact"
-                className="mt-4 text-xl font-medium px-8 py-3 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-                onClick={toggleMenu}
+              <motion.div 
                 variants={{
                   hidden: { opacity: 0, y: 20 },
                   visible: { 
@@ -193,8 +211,14 @@ const Header = () => {
                 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Hire Me
-              </motion.a>
+                <Link
+                  to="/contact"
+                  className="mt-4 text-xl font-medium px-8 py-3 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                  onClick={toggleMenu}
+                >
+                  Hire Me
+                </Link>
+              </motion.div>
             </motion.nav>
           </motion.div>
         )}
