@@ -34,14 +34,14 @@ const Hero = () => {
   }, []);
   
   return (
-    <section id="home" className="min-h-screen flex items-center relative overflow-hidden pt-20">
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
       <div className="absolute top-0 left-0 w-full h-full -z-10">
         <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-primary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-primary/5 rounded-full blur-3xl" />
       </div>
       
-      <div className="container mx-auto px-4 py-10 md:py-20 flex flex-col md:flex-row justify-between items-center">
-        <div className="max-w-2xl mb-12 md:mb-0 text-left md:pr-6">
+      <div className="container mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="max-w-2xl order-2 lg:order-1">
           <div className="overflow-hidden inline-block mb-4">
             <span className="inline-block text-sm md:text-base font-medium px-4 py-1.5 rounded-full bg-primary/10 text-primary animate-fade-down">
               Frontend Developer & UI Designer
@@ -78,25 +78,25 @@ const Hero = () => {
         
         <div 
           ref={imageRef}
-          className="relative w-full max-w-md animate-fade-up animate-delay-200 transition-transform duration-200 ease-out"
+          className="relative order-1 lg:order-2 mx-auto lg:mx-0 w-full max-w-md animate-fade-up animate-delay-200 transition-transform duration-200 ease-out"
         >
-          <div className="relative overflow-hidden rounded-2xl border-4 border-white/10 shadow-2xl">
+          <div className="relative aspect-square overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 shadow-2xl before:absolute before:inset-0 before:z-10 before:border before:border-white/20 before:rounded-2xl">
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-primary/0 opacity-70 z-10" />
             <img 
               src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" 
               alt="Professional Headshot" 
-              className="w-full h-auto object-cover aspect-[3/4]"
+              className="w-full h-full object-cover rounded-2xl"
             />
-          </div>
-          
-          <div className="absolute -bottom-5 -right-5 bg-card p-4 rounded-lg shadow-lg border border-border animate-fade-up animate-delay-400">
-            <p className="text-sm font-medium">5+ years experience</p>
-            <p className="text-xs text-muted-foreground">Frontend Development</p>
-          </div>
-          
-          <div className="absolute -top-5 -left-5 bg-card p-4 rounded-lg shadow-lg border border-border animate-fade-up animate-delay-300">
-            <p className="text-sm font-medium">100+ Projects</p>
-            <p className="text-xs text-muted-foreground">Completed</p>
+            
+            <div className="absolute -bottom-3 -right-3 z-20 bg-card p-4 rounded-lg shadow-lg border border-border animate-fade-up animate-delay-400">
+              <p className="text-sm font-medium">5+ years experience</p>
+              <p className="text-xs text-muted-foreground">Frontend Development</p>
+            </div>
+            
+            <div className="absolute -top-3 -left-3 z-20 bg-card p-4 rounded-lg shadow-lg border border-border animate-fade-up animate-delay-300">
+              <p className="text-sm font-medium">100+ Projects</p>
+              <p className="text-xs text-muted-foreground">Completed</p>
+            </div>
           </div>
         </div>
       </div>

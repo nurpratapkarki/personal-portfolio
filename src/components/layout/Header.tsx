@@ -40,13 +40,13 @@ const Header = () => {
   
   return (
     <header className={headerClass}>
-      <div className="container mx-auto px-4 flex justify-between items-center">
-        <a href="#home" className="text-2xl font-bold font-display tracking-tight text-gradient">
+      <div className="container mx-auto px-6 flex justify-between items-center">
+        <a href="#home" className="text-2xl font-bold font-display tracking-tight text-gradient relative z-10">
           John.Dev
         </a>
         
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8">
+        <nav className="hidden md:flex items-center space-x-6">
           {navLinks.map((link) => (
             <a
               key={link.name}
@@ -58,7 +58,7 @@ const Header = () => {
           ))}
           <a 
             href="#contact"
-            className="text-sm font-medium px-4 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+            className="ml-2 text-sm font-medium px-5 py-2.5 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             Hire Me
           </a>
@@ -66,7 +66,7 @@ const Header = () => {
         
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden text-foreground"
+          className="md:hidden text-foreground relative z-10"
           onClick={toggleMenu}
           aria-label="Toggle menu"
         >
@@ -76,13 +76,13 @@ const Header = () => {
       
       {/* Mobile Navigation */}
       <div className={cn(
-        "fixed inset-0 bg-background z-40 flex flex-col items-center justify-center transition-all duration-300 md:hidden",
+        "fixed inset-0 bg-background/98 backdrop-blur-sm z-40 flex flex-col items-center justify-center transition-all duration-300 md:hidden",
         {
           'opacity-100 visible': isMenuOpen,
-          'opacity-0 invisible': !isMenuOpen
+          'opacity-0 invisible pointer-events-none': !isMenuOpen
         }
       )}>
-        <nav className="flex flex-col space-y-6 items-center">
+        <nav className="flex flex-col space-y-8 items-center">
           {navLinks.map((link) => (
             <a
               key={link.name}
@@ -95,7 +95,7 @@ const Header = () => {
           ))}
           <a 
             href="#contact"
-            className="mt-4 text-xl font-medium px-6 py-3 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+            className="mt-4 text-xl font-medium px-8 py-3 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
             onClick={toggleMenu}
           >
             Hire Me
