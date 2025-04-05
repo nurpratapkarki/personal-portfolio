@@ -10,10 +10,10 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-6 md:mb-0">
             <a href="#home" className="text-xl font-bold font-display tracking-tight text-gradient">
-              John.Dev
+              Nur Pratap karki
             </a>
             <p className="mt-2 text-muted-foreground text-sm">
-              Frontend Developer & UI Designer
+              Full Stack Developer
             </p>
           </div>
           
@@ -58,7 +58,7 @@ const Footer = () => {
         <div className="mt-8 pt-8 border-t border-border/40">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-muted-foreground">
-              © {currentYear} John Developer. All rights reserved.
+              © {currentYear} Nur Pratap Karki. All rights reserved.
             </p>
             <div className="mt-4 md:mt-0 flex space-x-6">
               <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
