@@ -112,25 +112,31 @@
   }
   
   .glassmorphic {
-    @apply backdrop-blur-md border border-white/10 transition-all duration-300;
+    @apply backdrop-blur-md border transition-all duration-300;
     background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
   }
   
+  /* Apply dark mode styles using a separate selector */
   .dark .glassmorphic {
     background-color: rgba(15, 23, 42, 0.6);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   }
   
   .dark .card,
   .dark .bg-card,
   .dark .section-container {
-    @apply glassmorphic;
+    @apply backdrop-blur-md border border-white/10 transition-all duration-300;
+    background-color: rgba(15, 23, 42, 0.6);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   }
   
   .dark .service-card {
-    @apply glassmorphic;
+    @apply backdrop-blur-md border border-white/10 transition-all duration-300;
+    background-color: rgba(15, 23, 42, 0.6);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   }
   
   .section-title {
@@ -358,7 +364,11 @@ html {
 
 /* Make sure content sections have proper spacing and glass effect in dark mode */
 .dark .section-padding > div {
-  @apply glassmorphic p-6 rounded-lg my-4;
+  @apply p-6 rounded-lg my-4;
+  backdrop-filter: blur(12px);
+  background-color: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 /* Smooth scrolling for mobile */
