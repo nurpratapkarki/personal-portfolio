@@ -4,14 +4,11 @@ import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
-import { ThemeToggle } from '../theme/ThemeToggle';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const location = useLocation();
-  const isMobile = useIsMobile();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -35,13 +32,6 @@ const Header = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-  
-  // Close mobile menu when route changes
-  useEffect(() => {
-    if (isMenuOpen) {
-      setIsMenuOpen(false);
-    }
-  }, [location.pathname]);
   
   const headerClass = cn(
     'fixed top-0 left-0 w-full z-50 transition-all duration-300',
@@ -94,31 +84,28 @@ const Header = () => {
         </motion.div>
         
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-6">
-          <nav className="flex items-center space-x-6">
-            {navLinks.map((link, i) => (
-              <motion.div
-                key={link.name}
-                custom={i}
-                variants={navItemVariants}
-                whileHover={{ scale: 1.08 }}
-                whileTap={{ scale: 0.95 }}
+        <nav className="hidden md:flex items-center space-x-6">
+          {navLinks.map((link, i) => (
+            <motion.div
+              key={link.name}
+              custom={i}
+              variants={navItemVariants}
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Link 
+                to={link.href}
+                className={cn(
+                  "text-sm font-medium transition-colors custom-button",
+                  location.pathname === link.href 
+                    ? "text-primary" 
+                    : "text-foreground/80 hover:text-primary"
+                )}
               >
-                <Link 
-                  to={link.href}
-                  className={cn(
-                    "text-sm font-medium transition-colors custom-button",
-                    location.pathname === link.href 
-                      ? "text-primary" 
-                      : "text-foreground/80 hover:text-primary"
-                  )}
-                >
-                  {link.name}
-                </Link>
-              </motion.div>
-            ))}
-          </nav>
-          
+                {link.name}
+              </Link>
+            </motion.div>
+          ))}
           <motion.div 
             variants={navItemVariants}
             custom={4}
@@ -135,31 +122,25 @@ const Header = () => {
               Hire Me
             </Link>
           </motion.div>
-          
-          <ThemeToggle />
-        </div>
+        </nav>
         
-        {/* Mobile Menu and Theme Toggle */}
-        <div className="md:hidden flex items-center space-x-4">
-          <ThemeToggle />
-          
-          <motion.button 
-            className="text-foreground relative z-10"
-            onClick={toggleMenu}
-            aria-label="Toggle menu"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </motion.button>
-        </div>
+        {/* Mobile Menu Button */}
+        <motion.button 
+          className="md:hidden text-foreground relative z-10"
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </motion.button>
       </div>
       
       {/* Mobile Navigation */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div 
-            className="fixed inset-0 bg-background/95 dark:bg-background/90 dark:backdrop-blur-md backdrop-blur-sm z-40 flex flex-col items-center justify-center md:hidden"
+            className="fixed inset-0 bg-background/98 backdrop-blur-sm z-40 flex flex-col items-center justify-center md:hidden"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
