@@ -111,6 +111,28 @@
     @apply bg-white/10 backdrop-blur-lg border border-white/10 shadow-xl;
   }
   
+  .glassmorphic {
+    @apply backdrop-blur-md border border-white/10 transition-all duration-300;
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .dark .glassmorphic {
+    background-color: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+  
+  .dark .card,
+  .dark .bg-card,
+  .dark .section-container {
+    @apply glassmorphic;
+  }
+  
+  .dark .service-card {
+    @apply glassmorphic;
+  }
+  
   .section-title {
     @apply text-2xl md:text-3xl lg:text-4xl font-display font-bold mb-4 text-foreground;
   }
@@ -290,12 +312,15 @@ html {
 @keyframes twinkle {
   0% {
     opacity: 0.2;
+    transform: translateY(0);
   }
   50% {
     opacity: 0.8;
+    transform: translateY(-5px);
   }
   100% {
     opacity: 0.2;
+    transform: translateY(0);
   }
 }
 
@@ -329,4 +354,25 @@ html {
 
 .dark .animate-star-appear {
   animation: star-appear 0.5s ease-out forwards;
+}
+
+/* Make sure content sections have proper spacing and glass effect in dark mode */
+.dark .section-padding > div {
+  @apply glassmorphic p-6 rounded-lg my-4;
+}
+
+/* Smooth scrolling for mobile */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .service-card {
+    margin-bottom: 1rem;
+  }
 }

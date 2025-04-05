@@ -10,6 +10,8 @@ interface Star {
   size: number;
   opacity: number;
   animationDuration: number;
+  direction: 'up' | 'down';
+  delay: number;
 }
 
 export const StarryBackground = () => {
@@ -30,6 +32,8 @@ export const StarryBackground = () => {
             size: Math.random() * 2 + 1,
             opacity: Math.random() * 0.5 + 0.3,
             animationDuration: Math.random() * 3 + 2,
+            direction: Math.random() > 0.5 ? 'up' : 'down',
+            delay: Math.random() * 2,
           });
         }
         
@@ -64,11 +68,15 @@ export const StarryBackground = () => {
           }}
           animate={{
             opacity: [star.opacity, star.opacity * 1.5, star.opacity],
+            y: star.direction === 'up' 
+              ? [`${star.y}%`, `${star.y - 1}%`, `${star.y}%`] 
+              : [`${star.y}%`, `${star.y + 1}%`, `${star.y}%`],
           }}
           transition={{
             duration: star.animationDuration,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: "easeInOut",
+            delay: star.delay
           }}
         />
       ))}

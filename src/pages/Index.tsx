@@ -6,8 +6,11 @@ import Hero from '../components/sections/Hero';
 import About from '../components/sections/About';
 import Projects from '../components/sections/Projects';
 import Contact from '../components/sections/Contact';
+import { useTheme } from '../components/theme/ThemeProvider';
 
 const Index = () => {
+  const { theme } = useTheme();
+  
   const pageVariants = {
     initial: { opacity: 0 },
     animate: { 
@@ -27,7 +30,7 @@ const Index = () => {
 
   return (
     <motion.div 
-      className="min-h-screen flex flex-col"
+      className="min-h-screen flex flex-col theme-transition"
       initial="initial"
       animate="animate"
       exit="exit"
@@ -36,9 +39,15 @@ const Index = () => {
       <Header />
       <main className="flex-grow">
         <Hero />
-        <About />
-        <Projects />
-        <Contact />
+        <section className={`${theme === 'dark' ? 'glassmorphic-container' : ''}`}>
+          <About />
+        </section>
+        <section className={`${theme === 'dark' ? 'glassmorphic-container' : ''}`}>
+          <Projects />
+        </section>
+        <section className={`${theme === 'dark' ? 'glassmorphic-container' : ''}`}>
+          <Contact />
+        </section>
       </main>
       <Footer />
     </motion.div>

@@ -61,6 +61,7 @@ const AboutPage = () => {
             initial="hidden"
             animate={controls}
             variants={sectionVariants}
+            className="dark:glassmorphic dark:p-8 dark:rounded-xl"
           >
             <About />
           </motion.div>
@@ -69,7 +70,7 @@ const AboutPage = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="mt-24 bg-secondary/20 rounded-xl p-8 md:p-12"
+            className="mt-24 bg-secondary/20 rounded-xl p-8 md:p-12 dark:glassmorphic"
           >
             <h2 className="text-2xl md:text-3xl font-bold mb-6">My Journey</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

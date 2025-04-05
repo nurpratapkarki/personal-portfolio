@@ -5,11 +5,13 @@ import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { ThemeToggle } from '../theme/ThemeToggle';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const location = useLocation();
+  const isMobile = useIsMobile();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -33,6 +35,13 @@ const Header = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  
+  // Close mobile menu when route changes
+  useEffect(() => {
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  }, [location.pathname]);
   
   const headerClass = cn(
     'fixed top-0 left-0 w-full z-50 transition-all duration-300',
@@ -150,7 +159,7 @@ const Header = () => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div 
-            className="fixed inset-0 bg-background/98 backdrop-blur-sm z-40 flex flex-col items-center justify-center md:hidden"
+            className="fixed inset-0 bg-background/95 dark:bg-background/90 dark:backdrop-blur-md backdrop-blur-sm z-40 flex flex-col items-center justify-center md:hidden"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
