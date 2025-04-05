@@ -4,6 +4,7 @@ import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
+import { ThemeToggle } from '../theme/ThemeToggle';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -84,28 +85,31 @@ const Header = () => {
         </motion.div>
         
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6">
-          {navLinks.map((link, i) => (
-            <motion.div
-              key={link.name}
-              custom={i}
-              variants={navItemVariants}
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Link 
-                to={link.href}
-                className={cn(
-                  "text-sm font-medium transition-colors custom-button",
-                  location.pathname === link.href 
-                    ? "text-primary" 
-                    : "text-foreground/80 hover:text-primary"
-                )}
+        <div className="hidden md:flex items-center space-x-6">
+          <nav className="flex items-center space-x-6">
+            {navLinks.map((link, i) => (
+              <motion.div
+                key={link.name}
+                custom={i}
+                variants={navItemVariants}
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.95 }}
               >
-                {link.name}
-              </Link>
-            </motion.div>
-          ))}
+                <Link 
+                  to={link.href}
+                  className={cn(
+                    "text-sm font-medium transition-colors custom-button",
+                    location.pathname === link.href 
+                      ? "text-primary" 
+                      : "text-foreground/80 hover:text-primary"
+                  )}
+                >
+                  {link.name}
+                </Link>
+              </motion.div>
+            ))}
+          </nav>
+          
           <motion.div 
             variants={navItemVariants}
             custom={4}
@@ -122,18 +126,24 @@ const Header = () => {
               Hire Me
             </Link>
           </motion.div>
-        </nav>
+          
+          <ThemeToggle />
+        </div>
         
-        {/* Mobile Menu Button */}
-        <motion.button 
-          className="md:hidden text-foreground relative z-10"
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </motion.button>
+        {/* Mobile Menu and Theme Toggle */}
+        <div className="md:hidden flex items-center space-x-4">
+          <ThemeToggle />
+          
+          <motion.button 
+            className="text-foreground relative z-10"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </motion.button>
+        </div>
       </div>
       
       {/* Mobile Navigation */}
