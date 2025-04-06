@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import Projects from '../components/sections/Projects';
-import { Github, ExternalLink, CheckCircle } from 'lucide-react';
+import { Github, CheckCircle } from 'lucide-react';
 
 const ProjectsPage = () => {
   const controls = useAnimation();
@@ -77,18 +77,6 @@ const ProjectsPage = () => {
       <main className="flex-grow pt-24">
         <div className="container mx-auto px-4 py-12">
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold font-display mb-4">My Projects</h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Showcasing my best work and the technologies I've mastered
-            </p>
-          </motion.div>
-          
-          <motion.div
             ref={ref}
             initial="hidden"
             animate={controls}
@@ -114,7 +102,7 @@ const ProjectsPage = () => {
               {processSteps.map((step, index) => (
                 <motion.div 
                   key={index}
-                  className="bg-card p-6 rounded-xl border border-border shadow-sm"
+                  className="bg-card/80 backdrop-blur-sm p-6 rounded-xl border border-border/50 shadow-sm"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 + (index * 0.1), duration: 0.5 }}
@@ -132,7 +120,7 @@ const ProjectsPage = () => {
           </motion.section>
           
           <motion.section
-            className="mt-20 bg-secondary/20 rounded-xl p-8 md:p-12"
+            className="mt-20 bg-secondary/20 backdrop-blur-sm rounded-xl p-8 md:p-12 border border-border/50"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
@@ -148,7 +136,7 @@ const ProjectsPage = () => {
               {['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Framer Motion', 'Redux', 'Node.js', 'GraphQL', 'REST API', 'Jest', 'React Testing Library', 'Figma'].map((tech, index) => (
                 <motion.div 
                   key={tech}
-                  className="flex items-center p-3 bg-card rounded-lg border border-border"
+                  className="flex items-center p-3 bg-card/80 backdrop-blur-sm rounded-lg border border-border/50"
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.7 + (index * 0.05), duration: 0.4 }}

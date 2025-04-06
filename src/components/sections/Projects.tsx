@@ -55,7 +55,7 @@ const projects = [
 
 const Projects = () => {
   return (
-    <section id="projects" className="section-padding bg-secondary/30">
+    <section id="projects" className="section-padding bg-secondary/30 backdrop-blur-sm border border-border/10 rounded-lg">
       <div className="section-container">
         <div className="text-center mb-16">
           <h2 className="section-title animate-fade-up">My Projects</h2>

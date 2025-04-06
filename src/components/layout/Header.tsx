@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
@@ -22,6 +22,11 @@ const Header = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
   
   const navLinks = [
     { name: 'Home', href: '/' },
@@ -74,12 +79,12 @@ const Header = () => {
       variants={headerVariants}
       className={headerClass}
     >
-      <div className="container mx-auto px-6 flex justify-between items-center">
+      <div className="container mx-auto px-4 sm:px-6 flex justify-between items-center">
         <motion.div
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <Link to="/" className="text-2xl font-bold font-display tracking-tight text-gradient relative z-10">
+          <Link to="/" className="text-xl sm:text-2xl font-bold font-display tracking-tight text-gradient relative z-10">
             Nur Pratap Karki
           </Link>
         </motion.div>
@@ -186,6 +191,7 @@ const Header = () => {
                   }}
                   whileHover={{ scale: 1.1, x: 5 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   <Link
                     to={link.href}
@@ -195,7 +201,6 @@ const Header = () => {
                         ? "text-primary" 
                         : "text-foreground hover:text-primary"
                     )}
-                    onClick={toggleMenu}
                   >
                     {link.name}
                   </Link>
@@ -220,11 +225,11 @@ const Header = () => {
                   boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.1)" 
                 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => setIsMenuOpen(false)}
               >
                 <Link
                   to="/contact"
                   className="mt-4 text-xl font-medium px-8 py-3 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-                  onClick={toggleMenu}
                 >
                   Hire Me
                 </Link>
