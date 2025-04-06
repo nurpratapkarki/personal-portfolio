@@ -28,7 +28,7 @@ export const ThemeToggle = ({ className }: { className?: string }) => {
         <motion.div
           className="absolute inset-0 bg-primary rounded-full origin-center"
           initial={{ scale: 0 }}
-          animate={{ scale: theme === 'light' ? 0 : 30 }}
+          animate={{ scale: theme === 'light' ? 0 : 15 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           style={{ opacity: 0.05, zIndex: -1 }}
         />
