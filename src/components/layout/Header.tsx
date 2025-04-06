@@ -1,6 +1,5 @@
-
 import { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
@@ -27,6 +26,18 @@ const Header = () => {
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isMenuOpen]);
   
   const navLinks = [
     { name: 'Home', href: '/' },
@@ -42,8 +53,8 @@ const Header = () => {
   const headerClass = cn(
     'fixed top-0 left-0 w-full z-50 transition-all duration-300',
     {
-      'py-6 bg-transparent': scrollPosition < 20,
-      'py-3 bg-background/80 backdrop-blur-lg shadow-sm': scrollPosition >= 20
+      'py-4 sm:py-6 bg-transparent': scrollPosition < 20,
+      'py-2 sm:py-3 bg-background/80 backdrop-blur-lg shadow-sm': scrollPosition >= 20
     }
   );
 
@@ -83,8 +94,9 @@ const Header = () => {
         <motion.div
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          className="relative z-20"
         >
-          <Link to="/" className="text-xl sm:text-2xl font-bold font-display tracking-tight text-gradient relative z-10">
+          <Link to="/" className="text-lg sm:text-xl md:text-2xl font-bold font-display tracking-tight text-gradient">
             Nur Pratap Karki
           </Link>
         </motion.div>
@@ -108,6 +120,7 @@ const Header = () => {
                       ? "text-primary" 
                       : "text-foreground/80 hover:text-primary"
                   )}
+                  aria-current={location.pathname === link.href ? "page" : undefined}
                 >
                   {link.name}
                 </Link>
@@ -140,9 +153,10 @@ const Header = () => {
           <ThemeToggle />
           
           <motion.button 
-            className="text-foreground relative z-10"
+            className="text-foreground relative z-20"
             onClick={toggleMenu}
             aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
@@ -151,32 +165,66 @@ const Header = () => {
         </div>
       </div>
       
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation - Always in DOM but conditionally animated */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div 
-            className="fixed inset-0 bg-background/98 backdrop-blur-sm z-40 flex flex-col items-center justify-center md:hidden"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className="fixed inset-0 z-10 md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
           >
-            <motion.nav 
-              className="flex flex-col space-y-8 items-center"
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: {},
-                visible: {
-                  transition: {
-                    staggerChildren: 0.1
+            {/* Glassmorphic Background - Independent of scroll position */}
+            <div className="absolute inset-0 bg-background/90 dark:bg-background/95 backdrop-blur-md"></div>
+            
+            <div className="relative h-full flex flex-col items-center justify-center px-6">
+              <motion.nav 
+                className="flex flex-col space-y-6 sm:space-y-8 items-center w-full max-w-sm"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: {},
+                  visible: {
+                    transition: {
+                      staggerChildren: 0.08
+                    }
                   }
-                }
-              }}
-            >
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.name}
+                }}
+              >
+                {navLinks.map((link) => (
+                  <motion.div
+                    key={link.name}
+                    variants={{
+                      hidden: { opacity: 0, y: 20 },
+                      visible: { 
+                        opacity: 1, 
+                        y: 0,
+                        transition: {
+                          type: 'spring',
+                          stiffness: 300,
+                          damping: 24
+                        }
+                      }
+                    }}
+                    whileHover={{ scale: 1.05, x: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-full text-center"
+                  >
+                    <Link
+                      to={link.href}
+                      className={cn(
+                        "text-lg sm:text-xl font-medium transition-colors block w-full py-2",
+                        location.pathname === link.href 
+                          ? "text-primary" 
+                          : "text-foreground hover:text-primary"
+                      )}
+                    >
+                      {link.name}
+                    </Link>
+                  </motion.div>
+                ))}
+                <motion.div 
                   variants={{
                     hidden: { opacity: 0, y: 20 },
                     visible: { 
@@ -185,56 +233,24 @@ const Header = () => {
                       transition: {
                         type: 'spring',
                         stiffness: 300,
-                        damping: 24
+                        damping: 24,
+                        delay: 0.3
                       }
                     }
                   }}
-                  whileHover={{ scale: 1.1, x: 5 }}
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => setIsMenuOpen(false)}
+                  className="w-full"
                 >
                   <Link
-                    to={link.href}
-                    className={cn(
-                      "text-xl font-medium transition-colors",
-                      location.pathname === link.href 
-                        ? "text-primary" 
-                        : "text-foreground hover:text-primary"
-                    )}
+                    to="/contact"
+                    className="mt-4 text-lg font-medium px-8 py-3 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors block w-full text-center"
                   >
-                    {link.name}
+                    Hire Me
                   </Link>
                 </motion.div>
-              ))}
-              <motion.div 
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { 
-                    opacity: 1, 
-                    y: 0,
-                    transition: {
-                      type: 'spring',
-                      stiffness: 300,
-                      damping: 24,
-                      delay: 0.4
-                    }
-                  }
-                }}
-                whileHover={{ 
-                  scale: 1.05, 
-                  boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.1)" 
-                }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <Link
-                  to="/contact"
-                  className="mt-4 text-xl font-medium px-8 py-3 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-                >
-                  Hire Me
-                </Link>
-              </motion.div>
-            </motion.nav>
+              </motion.nav>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
