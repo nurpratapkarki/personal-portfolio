@@ -1,8 +1,8 @@
-
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import image from '../../images/profile.png'
 
 const Hero = () => {
   const imageRef = useRef<HTMLDivElement>(null);
@@ -240,7 +240,12 @@ const Hero = () => {
                   }}
                   whileHover={{ scale: 1.1, transition: { duration: 0.2 } }}
                 >
-                  <span className="text-muted-foreground text-lg">Profile Image</span>
+                  {/* Fixed image rendering */}
+                  <img 
+                    src={image} 
+                    alt="Profile" 
+                    className="w-full h-full object-cover"
+                  />
                 </motion.div>
               </div>
             </motion.div>
