@@ -1,26 +1,41 @@
+
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { ThemeToggle } from '../theme/ThemeToggle';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [isScrollingUp, setIsScrollingUp] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const location = useLocation();
+  const isMobile = useIsMobile();
   
   useEffect(() => {
     const handleScroll = () => {
-      const position = window.scrollY;
-      setScrollPosition(position);
+      const currentScrollY = window.scrollY;
+      
+      // Determine scroll direction
+      if (currentScrollY > lastScrollY) {
+        setIsScrollingUp(false);
+      } else {
+        setIsScrollingUp(true);
+      }
+      
+      // Update position and last scroll
+      setScrollPosition(currentScrollY);
+      setLastScrollY(currentScrollY);
     };
     
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [lastScrollY]);
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -51,10 +66,13 @@ const Header = () => {
   };
   
   const headerClass = cn(
-    'fixed top-0 left-0 w-full z-50 transition-all duration-300',
+    'fixed w-full z-50 transition-all duration-300',
     {
       'py-4 sm:py-6 bg-transparent': scrollPosition < 20,
-      'py-2 sm:py-3 bg-background/80 backdrop-blur-lg shadow-sm': scrollPosition >= 20
+      'py-2 sm:py-3 bg-background/80 backdrop-blur-lg shadow-sm': scrollPosition >= 20,
+      'top-0': isScrollingUp || scrollPosition < 20 || isMenuOpen,
+      '-top-20': !isScrollingUp && scrollPosition >= 20 && !isMenuOpen && isMobile, // Hide on scroll down on mobile
+      'left-0': true
     }
   );
 
