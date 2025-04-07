@@ -134,7 +134,7 @@ const Hero = () => {
                 }
               }}
             >
-              Frontend Developer & UI Designer
+              Full Stack Developer 
             </motion.span>
           </motion.div>
           

@@ -10,8 +10,8 @@ const skills = [
   { name: 'TypeScript', level: 90 },
   { name: 'CSS/SCSS', level: 92 },
   { name: 'Tailwind CSS', level: 98 },
-  { name: 'Next.js', level: 85 },
-  { name: 'UI/UX Design', level: 80 },
+  { name: 'Django', level: 85 },
+  { name: 'Python', level: 87 },
   { name: 'Redux', level: 88 },
   { name: 'Jest/Testing', level: 75 }
 ];
@@ -189,7 +189,7 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            With over 5 years of experience, I specialize in creating elegant, efficient, and user-centered digital experiences.
+            With over 3 years of experience, I specialize in creating elegant, efficient, and user-centered digital experiences.
           </motion.p>
         </motion.div>
         
