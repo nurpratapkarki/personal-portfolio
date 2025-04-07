@@ -14,13 +14,15 @@ Visit the live site: [Portfolio](https://lovable.dev/projects/1328b782-ab9c-4061
 - **Animated UI**: Smooth animations using Framer Motion
 - **Interactive Elements**: Hover effects, transitions, and micro-interactions
 - **Modern UI**: Glassmorphic effects and clean typography
+- **Blog System**: Dynamic blog with categories, tags, and article pages
 
 ## Pages
 
 1. **Home**: Introduction with animated hero section
 2. **About**: Professional background, skills, and experience
 3. **Projects**: Portfolio of work with filterable categories
-4. **Contact**: Contact form and professional information
+4. **Blog**: Articles with category and tag filtering
+5. **Contact**: Contact form and professional information
 
 ## Tech Stack (Frontend)
 
@@ -34,9 +36,11 @@ Visit the live site: [Portfolio](https://lovable.dev/projects/1328b782-ab9c-4061
 
 ## Backend Requirements
 
-The frontend is designed to integrate with a Python backend API. Here's the proposed structure:
+The frontend is designed to integrate with a Python backend API. Here's the detailed structure for implementing backend functionality for all pages:
 
 ### Backend Models
+
+#### Authentication & User Management
 
 1. **User Model**
    - Fields:
@@ -46,62 +50,339 @@ The frontend is designed to integrate with a Python backend API. Here's the prop
      - first_name (String)
      - last_name (String)
      - role (String: 'admin', 'viewer')
+     - avatar_url (String, optional)
+     - bio (Text, optional)
+     - social_links (JSON: {platform: url})
      - created_at (DateTime)
      - updated_at (DateTime)
    - Functions:
      - authenticate()
      - update_profile()
      - reset_password()
+     - get_admin_status()
 
-2. **Project Model**
+#### Home Page
+
+2. **Hero Model**
    - Fields:
-     - project_id (Primary Key)
+     - hero_id (Primary Key)
      - title (String)
-     - slug (String, unique)
+     - subtitle (String)
      - description (Text)
-     - content (Rich Text)
-     - image_url (String)
-     - github_url (String, optional)
-     - live_url (String, optional)
-     - technologies (Array of Strings)
-     - category (String: 'web', 'mobile', 'design', etc.)
-     - featured (Boolean)
+     - background_image_url (String)
+     - cta_text (String)
+     - cta_link (String)
+     - is_active (Boolean)
      - created_at (DateTime)
      - updated_at (DateTime)
    - Functions:
-     - get_projects()
-     - get_project_by_slug()
-     - create_project()
-     - update_project()
-     - delete_project()
-     - get_featured_projects()
+     - get_active_hero()
+     - update_hero()
 
-3. **Contact Form Model**
+3. **StatCounter Model**
    - Fields:
-     - contact_id (Primary Key)
-     - name (String)
-     - email (String)
-     - message (Text)
-     - subject (String)
-     - status (String: 'new', 'read', 'replied')
+     - counter_id (Primary Key)
+     - title (String)
+     - value (Integer)
+     - icon (String)
+     - order (Integer)
      - created_at (DateTime)
+     - updated_at (DateTime)
    - Functions:
-     - submit_contact()
-     - get_submissions()
-     - update_status()
-     - reply_to_contact()
+     - get_all_counters()
+     - update_counter()
 
-4. **Skill Model**
+#### About Page
+
+4. **Profile Model**
+   - Fields:
+     - profile_id (Primary Key)
+     - headline (String)
+     - about_text (Rich Text)
+     - profile_image_url (String)
+     - resume_url (String)
+     - created_at (DateTime)
+     - updated_at (DateTime)
+   - Functions:
+     - get_profile()
+     - update_profile()
+
+5. **Experience Model**
+   - Fields:
+     - experience_id (Primary Key)
+     - company (String)
+     - position (String)
+     - start_date (Date)
+     - end_date (Date, nullable)
+     - is_current (Boolean)
+     - description (Text)
+     - logo_url (String, optional)
+     - order (Integer)
+     - created_at (DateTime)
+     - updated_at (DateTime)
+   - Functions:
+     - get_all_experiences()
+     - add_experience()
+     - update_experience()
+     - delete_experience()
+
+6. **Education Model**
+   - Fields:
+     - education_id (Primary Key)
+     - institution (String)
+     - degree (String)
+     - field_of_study (String)
+     - start_date (Date)
+     - end_date (Date, nullable)
+     - is_current (Boolean)
+     - description (Text, optional)
+     - logo_url (String, optional)
+     - order (Integer)
+     - created_at (DateTime)
+     - updated_at (DateTime)
+   - Functions:
+     - get_all_education()
+     - add_education()
+     - update_education()
+     - delete_education()
+
+7. **Skill Model**
    - Fields:
      - skill_id (Primary Key)
      - name (String)
      - category (String: 'frontend', 'backend', 'design', etc.)
      - proficiency (Integer: 1-5)
      - icon (String, path to icon)
+     - order (Integer)
+     - is_featured (Boolean)
+     - created_at (DateTime)
+     - updated_at (DateTime)
    - Functions:
-     - get_skills()
+     - get_all_skills()
      - get_skills_by_category()
+     - get_featured_skills()
+     - add_skill()
      - update_skill()
+     - delete_skill()
+
+8. **Testimonial Model**
+   - Fields:
+     - testimonial_id (Primary Key)
+     - name (String)
+     - position (String)
+     - company (String)
+     - text (Text)
+     - avatar_url (String, optional)
+     - rating (Integer: 1-5)
+     - is_featured (Boolean)
+     - order (Integer)
+     - created_at (DateTime)
+     - updated_at (DateTime)
+   - Functions:
+     - get_all_testimonials()
+     - get_featured_testimonials()
+     - add_testimonial()
+     - update_testimonial()
+     - delete_testimonial()
+
+#### Projects Page
+
+9. **Project Model**
+   - Fields:
+     - project_id (Primary Key)
+     - title (String)
+     - slug (String, unique)
+     - description (Text)
+     - content (Rich Text)
+     - thumbnail_url (String)
+     - banner_image_url (String, optional)
+     - github_url (String, optional)
+     - live_url (String, optional)
+     - demo_video_url (String, optional)
+     - technologies (Array of Strings)
+     - category (String: 'web', 'mobile', 'design', etc.)
+     - is_featured (Boolean)
+     - order (Integer)
+     - created_at (DateTime)
+     - updated_at (DateTime)
+   - Functions:
+     - get_all_projects()
+     - get_project_by_slug()
+     - get_projects_by_category()
+     - get_featured_projects()
+     - add_project()
+     - update_project()
+     - delete_project()
+
+10. **ProjectCategory Model**
+    - Fields:
+      - category_id (Primary Key)
+      - name (String)
+      - slug (String, unique)
+      - description (Text, optional)
+      - icon (String, optional)
+      - order (Integer)
+      - created_at (DateTime)
+      - updated_at (DateTime)
+    - Functions:
+      - get_all_categories()
+      - add_category()
+      - update_category()
+      - delete_category()
+
+11. **ProjectImage Model**
+    - Fields:
+      - image_id (Primary Key)
+      - project_id (Foreign Key)
+      - url (String)
+      - alt_text (String)
+      - order (Integer)
+      - created_at (DateTime)
+      - updated_at (DateTime)
+    - Functions:
+      - get_images_by_project()
+      - add_project_image()
+      - update_project_image()
+      - delete_project_image()
+
+#### Blog Page
+
+12. **BlogPost Model**
+    - Fields:
+      - post_id (Primary Key)
+      - title (String)
+      - slug (String, unique)
+      - excerpt (Text)
+      - content (Rich Text)
+      - cover_image_url (String)
+      - author_id (Foreign Key to User)
+      - category_id (Foreign Key to BlogCategory)
+      - status (String: 'draft', 'published')
+      - published_at (DateTime, nullable)
+      - meta_title (String, optional)
+      - meta_description (Text, optional)
+      - view_count (Integer)
+      - created_at (DateTime)
+      - updated_at (DateTime)
+    - Functions:
+      - get_all_posts()
+      - get_published_posts()
+      - get_post_by_slug()
+      - get_posts_by_category()
+      - get_posts_by_tag()
+      - search_posts()
+      - increment_view_count()
+      - add_post()
+      - update_post()
+      - delete_post()
+
+13. **BlogCategory Model**
+    - Fields:
+      - category_id (Primary Key)
+      - name (String)
+      - slug (String, unique)
+      - description (Text, optional)
+      - created_at (DateTime)
+      - updated_at (DateTime)
+    - Functions:
+      - get_all_categories()
+      - get_category_with_post_count()
+      - add_category()
+      - update_category()
+      - delete_category()
+
+14. **BlogTag Model**
+    - Fields:
+      - tag_id (Primary Key)
+      - name (String)
+      - slug (String, unique)
+      - created_at (DateTime)
+      - updated_at (DateTime)
+    - Functions:
+      - get_all_tags()
+      - get_popular_tags()
+      - add_tag()
+      - update_tag()
+      - delete_tag()
+
+15. **PostTag Model** (Mapping table for many-to-many relationship)
+    - Fields:
+      - post_id (Foreign Key)
+      - tag_id (Foreign Key)
+    - Functions:
+      - get_tags_by_post()
+      - get_posts_by_tag()
+      - add_tag_to_post()
+      - remove_tag_from_post()
+
+16. **Comment Model**
+    - Fields:
+      - comment_id (Primary Key)
+      - post_id (Foreign Key)
+      - parent_id (Foreign Key, self-referencing for replies, nullable)
+      - name (String)
+      - email (String)
+      - content (Text)
+      - is_approved (Boolean)
+      - created_at (DateTime)
+      - updated_at (DateTime)
+    - Functions:
+      - get_comments_by_post()
+      - get_approved_comments()
+      - add_comment()
+      - approve_comment()
+      - delete_comment()
+
+#### Contact Page
+
+17. **Contact Form Model**
+    - Fields:
+      - contact_id (Primary Key)
+      - name (String)
+      - email (String)
+      - phone (String, optional)
+      - subject (String)
+      - message (Text)
+      - status (String: 'new', 'read', 'replied')
+      - created_at (DateTime)
+      - updated_at (DateTime)
+    - Functions:
+      - submit_contact()
+      - get_all_submissions()
+      - get_submission_by_id()
+      - update_status()
+      - delete_submission()
+
+18. **ContactInfo Model**
+    - Fields:
+      - info_id (Primary Key)
+      - email (String)
+      - phone (String, optional)
+      - address (Text, optional)
+      - social_links (JSON: {platform: url})
+      - map_coordinates (JSON: {lat: float, lng: float}, optional)
+      - created_at (DateTime)
+      - updated_at (DateTime)
+    - Functions:
+      - get_contact_info()
+      - update_contact_info()
+
+19. **FAQ Model**
+    - Fields:
+      - faq_id (Primary Key)
+      - question (String)
+      - answer (Text)
+      - category (String, optional)
+      - order (Integer)
+      - is_published (Boolean)
+      - created_at (DateTime)
+      - updated_at (DateTime)
+    - Functions:
+      - get_all_faqs()
+      - get_published_faqs()
+      - add_faq()
+      - update_faq()
+      - delete_faq()
 
 ### API Endpoints
 
@@ -110,24 +391,45 @@ The frontend is designed to integrate with a Python backend API. Here's the prop
    - POST /api/auth/logout
    - POST /api/auth/reset-password
 
-2. **Projects**
+2. **Home Page**
+   - GET /api/hero
+   - GET /api/stats
+
+3. **About Page**
+   - GET /api/profile
+   - GET /api/experiences
+   - GET /api/education
+   - GET /api/skills
+   - GET /api/skills/categories
+   - GET /api/testimonials
+
+4. **Projects Page**
    - GET /api/projects
    - GET /api/projects/{slug}
    - GET /api/projects/featured
-   - POST /api/projects (admin)
-   - PUT /api/projects/{id} (admin)
-   - DELETE /api/projects/{id} (admin)
+   - GET /api/projects/categories
+   - GET /api/projects/category/{slug}
 
-3. **Contact**
-   - POST /api/contact
-   - GET /api/contact/submissions (admin)
-   - PUT /api/contact/{id}/status (admin)
-   - POST /api/contact/{id}/reply (admin)
+5. **Blog Page**
+   - GET /api/blog/posts
+   - GET /api/blog/posts/{slug}
+   - GET /api/blog/categories
+   - GET /api/blog/tags
+   - GET /api/blog/posts/search?q={query}
+   - GET /api/blog/posts/category/{slug}
+   - GET /api/blog/posts/tag/{slug}
+   - POST /api/blog/comments
+   - GET /api/blog/comments/post/{post_id}
 
-4. **Skills**
-   - GET /api/skills
-   - GET /api/skills/categories
-   - PUT /api/skills/{id} (admin)
+6. **Contact Page**
+   - GET /api/contact/info
+   - POST /api/contact/submit
+   - GET /api/faqs
+
+7. **Admin Endpoints** (Protected)
+   - CRUD operations for all models
+   - PUT /api/admin/contact/{id}/status
+   - POST /api/admin/contact/{id}/reply
 
 ### Recommended Python Stack
 
@@ -137,43 +439,23 @@ The frontend is designed to integrate with a Python backend API. Here's the prop
 - **Authentication**: JWT tokens
 - **Validation**: Pydantic (FastAPI) or Django serializers
 - **Email Service**: SendGrid or SMTP integration
-- **File Storage**: AWS S3 or similar for project images
+- **File Storage**: AWS S3 or similar for images and files
+- **Caching**: Redis
+- **Search**: PostgreSQL full-text search or Elasticsearch
 - **Deployment**: Docker containers on a cloud provider (AWS, GCP, or Azure)
 - **CI/CD**: GitHub Actions or GitLab CI
 
 ### Database Schema
 
-```
-┌───────────────────┐       ┌───────────────────┐
-│     User          │       │     Project       │
-├───────────────────┤       ├───────────────────┤
-│ user_id           │       │ project_id        │
-│ email             │       │ title             │
-│ password_hash     │       │ slug              │
-│ first_name        │       │ description       │
-│ last_name         │       │ content           │
-│ role              │       │ image_url         │
-│ created_at        │       │ github_url        │
-│ updated_at        │       │ live_url          │
-└───────────────────┘       │ technologies      │
-                            │ category          │
-                            │ featured          │
-                            │ created_at        │
-                            │ updated_at        │
-                            └───────────────────┘
-                                      
-┌───────────────────┐       ┌───────────────────┐
-│  ContactForm      │       │     Skill         │
-├───────────────────┤       ├───────────────────┤
-│ contact_id        │       │ skill_id          │
-│ name              │       │ name              │
-│ email             │       │ category          │
-│ message           │       │ proficiency       │
-│ subject           │       │ icon              │
-│ status            │       └───────────────────┘
-│ created_at        │
-└───────────────────┘
-```
+The database schema would include all the models described above with proper relationships:
+
+- One-to-Many relationships:
+  - User to BlogPosts
+  - BlogCategory to BlogPosts
+  - Project to ProjectImages
+
+- Many-to-Many relationships:
+  - BlogPosts to BlogTags (via PostTag mapping table)
 
 ### Environment Variables
 
@@ -184,15 +466,17 @@ The backend should use environment variables for:
 - Storage service credentials
 - CORS settings
 - Debug flags
+- API keys for external services
 
 ## Frontend-Backend Integration
 
 The frontend is built to consume a RESTful API with the following integration points:
 
-1. Projects gallery loads data from `/api/projects`
-2. Contact form submits to `/api/contact`
-3. Admin authentication via `/api/auth/login`
-4. Admin dashboard for project and contact management
+1. Fetching data for all page sections
+2. Dynamic content loading for blog posts and projects
+3. Form submission for contact page
+4. Authentication for admin dashboard
+5. Search functionality for blog and projects
 
 ## Getting Started with Development
 

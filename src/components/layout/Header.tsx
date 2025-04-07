@@ -58,6 +58,7 @@ const Header = () => {
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
     { name: 'Projects', href: '/projects' },
+    { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/contact' }
   ];
   
@@ -65,13 +66,15 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   
+  // Improved header class for better mobile experience
   const headerClass = cn(
     'fixed w-full z-50 transition-all duration-300',
     {
       'py-4 sm:py-6 bg-transparent': scrollPosition < 20,
       'py-2 sm:py-3 bg-background/80 backdrop-blur-lg shadow-sm': scrollPosition >= 20,
       'top-0': isScrollingUp || scrollPosition < 20 || isMenuOpen,
-      '-top-20': !isScrollingUp && scrollPosition >= 20 && !isMenuOpen && isMobile, // Hide on scroll down on mobile
+      // Instead of hiding completely, we now slide it partly out of view
+      'transform -translate-y-16 md:translate-y-0': !isScrollingUp && scrollPosition >= 20 && !isMenuOpen && isMobile,
       'left-0': true
     }
   );
@@ -166,12 +169,12 @@ const Header = () => {
           <ThemeToggle />
         </div>
         
-        {/* Mobile Menu and Theme Toggle */}
+        {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center space-x-4">
           <ThemeToggle />
           
           <motion.button 
-            className="text-foreground relative z-20"
+            className="text-foreground relative z-20 p-2" // Added padding for larger hit area
             onClick={toggleMenu}
             aria-label="Toggle menu"
             aria-expanded={isMenuOpen}
@@ -183,9 +186,9 @@ const Header = () => {
         </div>
       </div>
       
-      {/* Mobile Navigation - Always in DOM but conditionally animated */}
+      {/* New Mobile Navigation - Bottom Bar */}
       <AnimatePresence>
-        {isMenuOpen && (
+        {isMenuOpen ? (
           <motion.div 
             className="fixed inset-0 z-10 md:hidden"
             initial={{ opacity: 0 }}
@@ -193,7 +196,6 @@ const Header = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            {/* Glassmorphic Background - Independent of scroll position */}
             <div className="absolute inset-0 bg-background/90 dark:bg-background/95 backdrop-blur-md"></div>
             
             <div className="relative h-full flex flex-col items-center justify-center px-6">
@@ -268,6 +270,32 @@ const Header = () => {
                   </Link>
                 </motion.div>
               </motion.nav>
+            </div>
+          </motion.div>
+        ) : (
+          // Bottom navigation bar for quick access when menu is closed
+          <motion.div
+            className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-lg shadow-lg border-t border-border/40 py-2 px-4 md:hidden z-40"
+            initial={{ y: 100 }}
+            animate={{ y: 0 }}
+            exit={{ y: 100 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          >
+            <div className="flex justify-around items-center">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className={cn(
+                    "flex flex-col items-center p-1 transition-colors",
+                    location.pathname === link.href
+                      ? "text-primary"
+                      : "text-foreground/70 hover:text-primary"
+                  )}
+                >
+                  <span className="text-xs font-medium mt-1">{link.name}</span>
+                </Link>
+              ))}
             </div>
           </motion.div>
         )}
