@@ -5,6 +5,7 @@ import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import { Briefcase, GraduationCap, Award, ArrowDown, Heart } from 'lucide-react';
 import { useTheme } from '../components/theme/ThemeProvider';
+import image from '../images/profile.png'
 
 const AboutPage = () => {
   const [activeSection, setActiveSection] = useState('intro');
@@ -135,7 +136,7 @@ const AboutPage = () => {
                 >
                   <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-primary">
                     <img 
-                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" 
+                      src={image} 
                       alt="Profile"
                       className="w-full h-full object-cover"
                     />
