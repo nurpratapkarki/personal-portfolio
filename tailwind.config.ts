@@ -1,7 +1,8 @@
-
 import type { Config } from "tailwindcss";
+import { fontFamily } from "tailwindcss/defaultTheme";
+import animate from "tailwindcss-animate";
 
-export default {
+const config = {
 	darkMode: ["class"],
 	content: [
 		"./pages/**/*.{ts,tsx}",
@@ -20,7 +21,7 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Inter', 'sans-serif'],
+				sans: ["var(--font-sans)", ...fontFamily.sans],
 				display: ['SF Pro Display', 'Inter', 'sans-serif'],
 			},
 			colors: {
@@ -146,5 +147,7 @@ export default {
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [animate],
 } satisfies Config;
+
+export default config;

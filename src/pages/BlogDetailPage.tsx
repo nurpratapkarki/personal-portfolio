@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -185,10 +184,24 @@ const getRelatedPosts = (currentPost, allPosts, limit = 3) => {
   return filtered;
 };
 
+interface BlogPost {
+  id: number;
+  title: string;
+  content: string;
+  date: string;
+  author: string;
+  authorImage: string;
+  authorBio: string;
+  category: string;
+  tags: string[];
+  coverImage: string;
+  readTime: string;
+}
+
 const BlogDetailPage = () => {
   const { blogId } = useParams();
-  const [post, setPost] = useState<any>(null);
-  const [relatedPosts, setRelatedPosts] = useState<any[]>([]);
+  const [post, setPost] = useState<BlogPost | null>(null);
+  const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -201,8 +214,8 @@ const BlogDetailPage = () => {
       const foundPost = BLOG_POSTS.find(p => p.id === parseInt(blogId || '0'));
       
       if (foundPost) {
-        setPost(foundPost);
-        setRelatedPosts(getRelatedPosts(foundPost, BLOG_POSTS));
+        setPost(foundPost as BlogPost);
+        setRelatedPosts(getRelatedPosts(foundPost as BlogPost, BLOG_POSTS) as BlogPost[]);
       }
       
       setLoading(false);
@@ -230,6 +243,15 @@ const BlogDetailPage = () => {
         duration: 0.4
       }
     }
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // ... rest of the code
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    // ... rest of the code
   };
 
   if (loading) {
