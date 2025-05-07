@@ -35,12 +35,15 @@
         }
       }(window.location))
     </script>
+    <!-- Fix for FLoC/interest-cohort issues -->
+    <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
   </head>
 
   <body>
     <div id="root"></div>
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="text/javascript"></script>
+    <!-- Fallback script for browsers that don't support modules -->
+    <script nomodule src="./fallback.js"></script>
+    <!-- Main application script -->
     <script type="module" src="./src/main.tsx"></script>
   </body>
 </html>

@@ -51,6 +51,31 @@ jobs:
           NODE_ENV: production
           VITE_BASE_URL: '/personal-portfolio/'
 
+      - name: Copy config files to dist
+        run: |
+          cp public/.nojekyll dist/
+          cp public/_headers dist/
+          echo "{}" > dist/vercel.json
+          echo "window.BUILD_MODE = 'production';" > dist/config.js
+          
+      - name: Create .nojekyll file
+        run: touch dist/.nojekyll
+        
+      - name: Create headers file for GitHub Pages
+        run: |
+          cat > dist/_headers << EOL
+          /*
+            Content-Type: text/html; charset=utf-8
+            X-Content-Type-Options: nosniff
+            Permissions-Policy: interest-cohort=()
+          
+          /*.js
+            Content-Type: application/javascript; charset=utf-8
+          
+          /*.css
+            Content-Type: text/css; charset=utf-8
+          EOL
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
