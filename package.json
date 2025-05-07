@@ -1,8 +1,22 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "personal-portfolio",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "A modern, responsive portfolio website built with React, TypeScript, and Tailwind CSS",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/personal-portfolio"
+  },
+  "keywords": [
+    "portfolio",
+    "react",
+    "typescript",
+    "tailwindcss",
+    "shadcn-ui"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

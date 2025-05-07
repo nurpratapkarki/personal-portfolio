@@ -1,28 +1,52 @@
 name: Deploy to GitHub Pages
+
 on:
   push:
     branches:
       - main
   workflow_dispatch:
+
+env:
+  NODE_VERSION: '20'
+  NPM_VERSION: '9.5.0'
+
 jobs:
-  test:
+  security:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.7
-      - name: Install npm
-        uses: npm/action-setup@v4
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          version: 9.5.0
-      - name: install Nodejs
-        uses: actions/setup-node@v3
+          args: --severity-threshold=high
+
+  test:
+    runs-on: ubuntu-latest
+    needs: security
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
+
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Run linting
+        run: npm run lint
+
       - name: Run tests
         run: npm test
+        env:
+          CI: true
 
   build:
     runs-on: ubuntu-latest
@@ -30,19 +54,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.7
-      - name: Install npm
-        uses: npm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          version: 9.5.0
-      - name: install Nodejs
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
+
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
       - name: Build project
         run: npm run build
+        env:
+          NODE_ENV: production
+
       - name: Upload production-ready build files
         uses: actions/upload-pages-artifact@v3
         with:
@@ -70,6 +96,23 @@ jobs:
         with:
           name: github-pages
           path: ./dist
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        with:
+          static_site_generator: vite
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Notify deployment status
+        if: always()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_CHANNEL: deployments
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_TITLE: Portfolio Deployment
+          SLACK_MESSAGE: 'Deployment to GitHub Pages ${{ job.status }}'
+          SLACK_FOOTER: 'Triggered by ${{ github.actor }}'

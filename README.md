@@ -1,13 +1,8 @@
-
-# Portfolio Website
+# Personal Portfolio Website
 
 A modern, responsive portfolio website built with React, TypeScript, and Tailwind CSS, showcasing professional experience, projects, and contact information.
 
-## Live Demo
-
-Visit the live site: [Portfolio](https://lovable.dev/projects/1328b782-ab9c-4061-bff6-0a3a2b678ea8)
-
-## Frontend Features
+## 🚀 Features
 
 - **Responsive Design**: Fully responsive for all device sizes
 - **Dark/Light Mode**: Theme toggle with smooth transitions
@@ -16,15 +11,7 @@ Visit the live site: [Portfolio](https://lovable.dev/projects/1328b782-ab9c-4061
 - **Modern UI**: Glassmorphic effects and clean typography
 - **Blog System**: Dynamic blog with categories, tags, and article pages
 
-## Pages
-
-1. **Home**: Introduction with animated hero section
-2. **About**: Professional background, skills, and experience
-3. **Projects**: Portfolio of work with filterable categories
-4. **Blog**: Articles with category and tag filtering
-5. **Contact**: Contact form and professional information
-
-## Tech Stack (Frontend)
+## 🛠️ Tech Stack
 
 - **Framework**: React with TypeScript
 - **Styling**: Tailwind CSS
@@ -33,6 +20,79 @@ Visit the live site: [Portfolio](https://lovable.dev/projects/1328b782-ab9c-4061
 - **Routing**: React Router
 - **Icons**: Lucide React
 - **Build Tool**: Vite
+
+## 📦 Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/personal-portfolio.git
+cd personal-portfolio
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Create a `.env` file in the root directory and add your environment variables:
+```env
+VITE_API_URL=your_api_url_here
+```
+
+4. Start the development server:
+```bash
+npm run dev
+```
+
+## 🏗️ Building for Production
+
+To create a production build:
+
+```bash
+npm run build
+```
+
+The build artifacts will be stored in the `dist/` directory.
+
+## 🧪 Running Tests
+
+```bash
+npm run test
+```
+
+## 📝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👥 Authors
+
+- Your Name - Initial work
+
+## 🙏 Acknowledgments
+
+- [shadcn/ui](https://ui.shadcn.com/) for the beautiful UI components
+- [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
+- [Framer Motion](https://www.framer.com/motion/) for the animations
+
+## Live Demo
+
+Visit the live site: [Portfolio](https://lovable.dev/projects/1328b782-ab9c-4061-bff6-0a3a2b678ea8)
+
+## Pages
+
+1. **Home**: Introduction with animated hero section
+2. **About**: Professional background, skills, and experience
+3. **Projects**: Portfolio of work with filterable categories
+4. **Blog**: Articles with category and tag filtering
+5. **Contact**: Contact form and professional information
 
 ## Backend Requirements
 
@@ -521,7 +581,3 @@ The frontend and backend can be deployed separately:
 
 - Frontend: Netlify, Vercel, or similar static hosting
 - Backend: Cloud provider with Docker support (AWS, GCP, Azure)
-
-## License
-
-MIT
