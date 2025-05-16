@@ -6,14 +6,16 @@ import { motion, useAnimation, Variants } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 const skills = [
-  { name: 'React.js', level: 95 },
+  { name: 'React.ts', level: 95 },
+  { name: 'JavaScript', level: 95 },
+  {name: 'TypeScript', level: 90 },
+  { name: 'HTML', level: 95 },
+  { name: 'React Native', level: 85 },
   { name: 'TypeScript', level: 90 },
   { name: 'CSS/SCSS', level: 92 },
-  { name: 'Tailwind CSS', level: 98 },
+  { name: 'Tailwind CSS', level: 90 },
   { name: 'Django', level: 85 },
-  { name: 'Python', level: 87 },
-  { name: 'Redux', level: 88 },
-  { name: 'Jest/Testing', level: 75 }
+  { name: 'Python', level: 87 },  
 ];
 
 interface SkillBarProps {
@@ -38,7 +40,7 @@ const SkillBar = ({ name, level, index }: SkillBarProps) => {
       width: `${level}%`,
       transition: {
         duration: 1,
-        ease: [0.25, 0.46, 0.45, 0.94], // Using a valid cubic-bezier
+        ease: [0.25, 0.46, 0.45, 0.94], 
         delay: 0.3 + (index * 0.1)
       }
     }
@@ -223,7 +225,7 @@ const About = () => {
               className="flex flex-wrap gap-2 mb-8"
               variants={containerVariants}
             >
-              {['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Redux', 'Jest', 'Figma', 'UI/UX', 'Responsive Design'].map((tag, index) => (
+              {['React', 'TypeScript', 'React Native', 'Tailwind CSS', 'Django', 'Figma', 'UI/UX','RestApi', 'Responsive Design'].map((tag, index) => (
                 <motion.span 
                   key={tag} 
                   className="text-xs px-3 py-1 rounded-full bg-secondary text-secondary-foreground"

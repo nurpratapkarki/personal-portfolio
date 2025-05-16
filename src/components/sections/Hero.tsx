@@ -171,6 +171,7 @@ const Hero = () => {
           <motion.p 
             className="text-lg text-muted-foreground max-w-md mt-6"
             variants={item}
+            
           >
             I build responsive, user-friendly websites and applications with meticulous attention to detail and a focus on performance and user experience.
           </motion.p>
