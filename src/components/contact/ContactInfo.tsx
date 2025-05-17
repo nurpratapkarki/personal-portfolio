@@ -7,19 +7,19 @@ const contactInfo = [
   {
     icon: <Mail size={24} />,
     title: "Email",
-    details: "contact@example.com",
-    link: "mailto:contact@example.com"
+    details: "nurpratapkarki@gmail.com",
+    link: "mailto:nurpratapkarki@gmail.com"
   },
   {
     icon: <Phone size={24} />,
     title: "Phone",
-    details: "+1 (555) 123-4567",
-    link: "tel:+15551234567"
+    details: "+977 (984) 069 3765",
+    link: "tel:+9779840693765"
   },
   {
     icon: <MapPin size={24} />,
     title: "Location",
-    details: "San Francisco, CA, USA",
+    details: "Kohalpur Banke, Nepal",
     link: "#"
   },
   {
@@ -34,19 +34,19 @@ const socialLinks = [
   {
     icon: <Linkedin size={24} />,
     name: "LinkedIn",
-    link: "https://linkedin.com",
+    link: "https://linkedin.com/in/nurpratapkarki",
     color: "bg-[#0077B5]/10 text-[#0077B5] hover:bg-[#0077B5] hover:text-white"
   },
   {
     icon: <Github size={24} />,
     name: "GitHub",
-    link: "https://github.com",
+    link: "https://github.com/nurpratapkarki",
     color: "bg-[#333]/10 text-[#333] hover:bg-[#333] hover:text-white"
   },
   {
     icon: <Twitter size={24} />,
     name: "Twitter",
-    link: "https://twitter.com",
+    link: "https://x.com/nurpratapkarki",
     color: "bg-[#1DA1F2]/10 text-[#1DA1F2] hover:bg-[#1DA1F2] hover:text-white"
   }
 ];
