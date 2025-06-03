@@ -19,7 +19,7 @@ const Footer = () => {
           
           <div className="flex space-x-6">
             <a 
-              href="https://github.com" 
+              href="https://github.com/nurpratapkarki" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-foreground/70 hover:text-primary transition-colors"
@@ -28,7 +28,7 @@ const Footer = () => {
               <Github size={20} />
             </a>
             <a 
-              href="https://linkedin.com" 
+              href="https://linkedin.com/in/nurpratapkarki" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-foreground/70 hover:text-primary transition-colors"
@@ -37,7 +37,7 @@ const Footer = () => {
               <Linkedin size={20} />
             </a>
             <a 
-              href="https://twitter.com" 
+              href="https://x.com/nurpratapkarki" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-foreground/70 hover:text-primary transition-colors"
@@ -46,7 +46,7 @@ const Footer = () => {
               <Twitter size={20} />
             </a>
             <a 
-              href="mailto:john@example.com" 
+              href="mailto:nurpratapkarki@gmail.com" 
               className="text-foreground/70 hover:text-primary transition-colors"
               aria-label="Email"
             >
