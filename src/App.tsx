@@ -12,6 +12,7 @@ import BlogDetailPage from "./pages/BlogDetailPage";
 import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
 import { StarryBackground } from "./components/theme/StarryBackground";
+import { SpeedInsights } from "@vercel/speed-insights/react"; // 👈 Import here
 
 const queryClient = new QueryClient();
 
@@ -30,10 +31,10 @@ const App = () => (
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:blogId" element={<BlogDetailPage />} />
             <Route path="/contact" element={<ContactPage />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </HashRouter>
+        <SpeedInsights /> 
       </TooltipProvider>
     </ThemeProvider>
   </QueryClientProvider>

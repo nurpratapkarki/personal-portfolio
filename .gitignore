@@ -45,3 +45,4 @@ src/later.txt
 # Cache
 .cache
 .eslintcache
+.vercel
