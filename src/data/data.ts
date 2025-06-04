@@ -1,19 +1,19 @@
 export const projects = [
     {
-        title: 'E-commerce Dashboard',
-        description: 'A comprehensive dashboard for managing online store inventory, orders, and customers with real-time analytics.',
-        tags: ['React', 'TypeScript', 'Tailwind CSS', 'Chart.js'],
+        title: 'React Developer Toolkit',
+        description: 'A collection of reusable React components and hooks for building modern web applications with ease.',
+        tags: ['React', 'TypeScript', 'Tailwind CSS', 'Storybook'],
         imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
         liveUrl: 'https://example.com',
-        githubUrl: 'https://github.com',
+        githubUrl: 'https://github.com/nurpratapkarki/GlobalToolkit',
       },
       {
-        title: 'Task Management App',
-        description: 'A Kanban-style project management tool with drag-and-drop functionality, team collaboration, and progress tracking.',
-        tags: ['React', 'Redux', 'Firebase', 'Styled Components'],
+        title: 'Budget Management App',
+        description: 'A Kanban-style Budget management tool with drag-and-drop functionality, team collaboration, and progress tracking.',
+        tags: ['React', 'Redux', 'TypeScript','SuperBase', 'Styled Components'],
         imageUrl: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
         liveUrl: 'https://example.com',
-        githubUrl: 'https://github.com',
+        githubUrl: 'https://github.com/nurpratapkarki/budget-management-dashboard',
       },
       {
         title: 'Travel Booking Platform',
